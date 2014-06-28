@@ -1,7 +1,6 @@
 .intel_syntax
 
-push 12345678
-mov eax, [0x00402030]
-call eax
+push 65
+call [0x00402030]
 pop eax
 ret
