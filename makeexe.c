@@ -12,6 +12,8 @@ void align(FILE *f, int size) {
 IMAGE_DOS_HEADER dosh;
 IMAGE_NT_HEADERS32 nth;
 IMAGE_SECTION_HEADER sects[1];
+IMAGE_OPTIONAL_HEADER32 oph;
+IMAGE_FILE_HEADER fh;
  
 int main(void) {
     strncpy((char *)&dosh.e_magic, "MZ", 2);
@@ -55,6 +57,13 @@ int main(void) {
     sects[0].SizeOfRawData      = 0x0200;
     sects[0].PointerToRawData   = 0x0200;
     sects[0].Characteristics    = 0x60000020;
+
+    fh.NumberOfSections = 2;
+
+    oph.SizeOfImage                     = 300;
+    oph.Subsystem                       = 3;
+    oph.DataDirectory[1].VirtualAddress = 0x00002000;
+    oph.DataDirectory[1].Size           = 0x00001000;
  
     FILE *f = fopen("test.exe", "wb");
     fwrite(&dosh, sizeof(dosh), 1, f);
@@ -70,6 +79,6 @@ int main(void) {
     fwrite(text, sizeof(text), 1, f);
     align(f, nth.OptionalHeader.FileAlignment);
     fclose(f);
- 
+
     return 0;
 }
