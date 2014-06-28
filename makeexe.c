@@ -78,6 +78,8 @@ int main(void) {
     BYTE text[] = { 0xc3 };
     fwrite(text, sizeof(text), 1, f);
     align(f, nth.OptionalHeader.FileAlignment);
+    BYTE image[] = { 0x600 };
+    fwrite(image, sizeof(image), 1, f);
     fclose(f);
 
     return 0;
