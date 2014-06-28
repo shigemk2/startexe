@@ -1,4 +1,4 @@
-let aout = System.IO.File.ReadAllBytes "./bitmap.exe"
+let aout = System.IO.File.ReadAllBytes "../../dump.exe"
 printfn "File Size = 0x%x" aout.Length
 for i in 0 .. 16 .. aout.Length - 1 do
     printf "%08x " i
