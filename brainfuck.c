@@ -10,9 +10,10 @@ int main(int argc, char *argv[]) {
     char bf[65536];
     int c;
     fgetc(f);
-    int mem[30000] = { 0 };
+    int mem[8] = { 0 };
     int curmem = 0;
     int i = 0;
+    int tojikakko = 1;
     int start = 0;
 
     int len = fread(bf, 1, sizeof(bf), f);
@@ -34,9 +35,18 @@ int main(int argc, char *argv[]) {
             start = i;
             break;
         case ']':
-            if (mem[0] >= 0) {
-                i = start;
+            if (mem[0]<0) break;
+            i--;
+            while (tojikakko > 0) {
+                if (bf[i] == ']') {
+                    tojikakko++;
+                } else if (bf[i] == '[') {
+                    tojikakko--;
+                }
+                i--;
+                start = i;
             }
+            i = start;
             break;
         case '.':
             printf( "%c", mem[curmem]);
@@ -48,7 +58,7 @@ int main(int argc, char *argv[]) {
             i = sizeof(bf) + 1;
             break;
         }
-        i += 1;
+        i++;
     }
     fclose(f);
     return 0;
