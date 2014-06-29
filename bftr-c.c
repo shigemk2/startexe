@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
     char memplus[]  = "    /* > */ r++;\n";
     char memminus[] = "    /* < */ r--;\n";
     char pchar[]    = "    /* . */ putchar(mem[r]);\n";
+    char gchar[]    = "    /* , */ mem[curmem] = getchar();\n";
     char return0[]  = "    return 0;\n";
 
     while( i < len ){
@@ -58,6 +59,7 @@ int main(int argc, char *argv[]) {
             fwrite(pchar, sizeof(pchar)-1, 1, fw);
             break;
         case ',':
+            fwrite(gchar, sizeof(gchar)-1, 1, fw);
             break;
         }
         i++;
