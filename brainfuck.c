@@ -16,10 +16,10 @@ int main(void) {
         if (c == '-') {
             reg[curreg] -= 1;
         }
-        if (c == '[') {
+        if (c == '>') {
             curreg += 1;
         }
-        if (c == ']') {
+        if (c == '<') {
             curreg -= 1;
         }
         if (c == '.') {
