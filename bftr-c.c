@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     char memplus[]  = "    /* > */ r++;\n";
     char memminus[] = "    /* < */ r--;\n";
     char pchar[]    = "    /* . */ putchar(mem[r]);\n";
-    char gchar[]    = "    /* , */ mem[curmem] = getchar();\n";
+    char gchar[]    = "    /* , */ mem[r] = getchar();\n";
     char return0[]  = "    return 0;\n";
 
     while( i < len ){
