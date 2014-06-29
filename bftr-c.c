@@ -24,32 +24,46 @@ int main(int argc, char *argv[]) {
 
     char intmain[] = "int main() {;\n";
     fwrite(intmain, sizeof(intmain)-1, 1, fw);
-    char Plus[]  = "    mem[r]++;\n";
-    char Minus[] = "    mem[r]--;\n";
+
+    char plus[]     = "    /* + */ mem[r]++;\n";
+    char minus[]    = "    /* - */ mem[r]--;\n";
+    char whileo[]   = "    /* [ */ while (mem[r]) {\n";
+    char whilec[]   = "    /* ] */ };\n";
+    char memplus[]  = "    /* > */ r++;\n";
+    char memminus[] = "    /* < */ r--;\n";
+    char pchar[]    = "    /* . */ putchar(mem[r]);\n";
+    char return0[]  = "    return 0;\n";
 
     while( i < len ){
         switch(bf[i]) {
         case '+':
-            fwrite(Plus, sizeof(Plus)-1, 1, fw);
+            fwrite(plus, sizeof(plus)-1, 1, fw);
             break;
         case '-':
-            fwrite(Minus, sizeof(Minus)-1, 1, fw);
+            fwrite(minus, sizeof(minus)-1, 1, fw);
             break;
         case '>':
+            fwrite(memplus, sizeof(memplus)-1, 1, fw);
             break;
         case '<':
+            fwrite(memminus, sizeof(memminus)-1, 1, fw);
             break;
         case '[':
+            fwrite(whileo, sizeof(whileo)-1, 1, fw);
             break;
         case ']':
+            fwrite(whilec, sizeof(whilec)-1, 1, fw);
             break;
         case '.':
+            fwrite(pchar, sizeof(pchar)-1, 1, fw);
             break;
         case ',':
             break;
         }
         i++;
     }
+
+    fwrite(return0, sizeof(return0)-1, 1, fw);
 
     char pcl[] = "};\n";
     fwrite(pcl, sizeof(pcl)-1, 1, fw);
