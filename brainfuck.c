@@ -13,27 +13,33 @@ int main(void) {
 
     int len = fread(bf, 1, sizeof(bf), f);
     while( i <= sizeof(bf) ){
-        if (bf[i] == '+') {
+        switch(bf[i]) {
+        case '+':
             reg[curreg] += 1;
-        }
-        if (bf[i] == '-') {
+            break;
+        case '-':
             reg[curreg] -= 1;
-        }
-        if (bf[i] == '>') {
+            break;
+        case '>':
             curreg += 1;
-        }
-        if (bf[i] == '<') {
+            break;
+        case '<':
             curreg -= 1;
-        }
-        if (bf[i] == '[') {
+            break;
+        case '[':
             start = i;
-        }
-        if (bf[i] == ']') {
-            i = start;
-        }
-        if (bf[i] == '.') {
+            break;
+        case ']':
+            if (reg[0] >= 0) {
+                i = start;
+            }
+            break;
+        case '.':
             printf( "%c", reg[curreg]);
-            return 0;
+            i = sizeof(bf) + 1;
+            break;
+        default :
+            break;
         }
         i += 1;
     }
