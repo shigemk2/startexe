@@ -8,16 +8,17 @@ int main(int argc, char *argv[]) {
     }
     FILE *f = fopen(argv[1], "r");
     char bf[65536];
-    int c;
-    fgetc(f);
-    int mem[8] = { 0 };
+    int len = fread(bf, 1, sizeof(bf), f);
+    fclose(f);
+
+    int mem[30000] = { 0 };
     int curmem = 0;
     int i = 0;
-    int tojikakko = 1;
-    int start = 0;
+    int nest;
 
-    int len = fread(bf, 1, sizeof(bf), f);
-    while( i <= sizeof(bf) ){
+    while( i < len ){
+        /* printf("i=%d bf[i]=%c curmem=%d mem[curmem]=%d\n", */
+        /*        i, bf[i], curmem, mem[curmem]); */
         switch(bf[i]) {
         case '+':
             mem[curmem] += 1;
@@ -32,34 +33,25 @@ int main(int argc, char *argv[]) {
             curmem -= 1;
             break;
         case '[':
-            start = i;
             break;
         case ']':
-            if (mem[0]<0) break;
+            if (mem[curmem] == 0) break;
             i--;
-            while (tojikakko > 0) {
+            nest = 1;
+            while (i >= 0 && nest > 0) {
                 if (bf[i] == ']') {
-                    tojikakko++;
+                    nest++;
                 } else if (bf[i] == '[') {
-                    tojikakko--;
+                    nest--;
                 }
                 i--;
-                start = i;
             }
-            i = start;
             break;
         case '.':
             printf( "%c", mem[curmem]);
             break;
-        case ' ':
-        case '\n':
-            break;
-        default :
-            i = sizeof(bf) + 1;
-            break;
         }
         i++;
     }
-    fclose(f);
     return 0;
 }
