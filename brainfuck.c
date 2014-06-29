@@ -36,9 +36,9 @@ int main(void) {
             break;
         case '.':
             printf( "%c", reg[curreg]);
-            i = sizeof(bf) + 1;
             break;
         default :
+            i = sizeof(bf) + 1;
             break;
         }
         i += 1;
