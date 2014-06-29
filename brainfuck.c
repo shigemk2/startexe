@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(void) {
-    FILE *f = fopen("test.b", "r");
+    FILE *f = fopen("helloworld.b", "r");
     char bf[65536];
     int c;
     fgetc(f);
@@ -36,6 +36,9 @@ int main(void) {
             break;
         case '.':
             printf( "%c", reg[curreg]);
+            break;
+        case ' ':
+        case '\n':
             break;
         default :
             i = sizeof(bf) + 1;
