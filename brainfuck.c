@@ -17,22 +17,34 @@ int main(int argc, char *argv[]) {
     int nest;
 
     while( i < len ){
-        /* printf("i=%d bf[i]=%c curmem=%d mem[curmem]=%d\n", */
-        /*        i, bf[i], curmem, mem[curmem]); */
+        /* printf("i=%d bf[i]=%c curmem=%d mem[curmem]=%d nest=%d\n", */
+        /*        i, bf[i], curmem, mem[curmem], nest); */
         switch(bf[i]) {
         case '+':
-            mem[curmem] += 1;
+            mem[curmem]++;
             break;
         case '-':
-            mem[curmem] -= 1;
+            mem[curmem]--;
             break;
         case '>':
-            curmem += 1;
+            curmem++;
             break;
         case '<':
-            curmem -= 1;
+            curmem--;
             break;
         case '[':
+            if (mem[curmem] != 0) break;
+            i++;
+            nest = 1;
+            while (i < len && nest > 0) {
+                if (bf[i] == '[') {
+                    nest++;
+                } else if (bf[i] == ']') {
+                    nest--;
+                }
+                i++;
+            }
+            i--;
             break;
         case ']':
             if (mem[curmem] == 0) break;
@@ -48,7 +60,10 @@ int main(int argc, char *argv[]) {
             }
             break;
         case '.':
-            printf( "%c", mem[curmem]);
+            putchar(mem[curmem]);
+            break;
+        case ',':
+            mem[curmem] = getchar();
             break;
         }
         i++;
