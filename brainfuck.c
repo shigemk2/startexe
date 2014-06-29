@@ -34,27 +34,26 @@ int main(int argc, char *argv[]) {
             break;
         case '[':
             if (mem[curmem] != 0) break;
-            i++;
-            nest = 1;
-            while (i < len && nest > 0) {
+            nest = 0;
+            while (i < len) {
                 if (bf[i] == '[') {
                     nest++;
                 } else if (bf[i] == ']') {
                     nest--;
+                    if (nest == 0) break;
                 }
                 i++;
             }
-            i--;
             break;
         case ']':
             if (mem[curmem] == 0) break;
-            i--;
-            nest = 1;
-            while (i >= 0 && nest > 0) {
+            nest = 0;
+            while (i >= 0) {
                 if (bf[i] == ']') {
                     nest++;
                 } else if (bf[i] == '[') {
                     nest--;
+                    if (nest == 0) break;
                 }
                 i--;
             }
