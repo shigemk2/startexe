@@ -10,9 +10,8 @@ int main(int argc, char *argv[]) {
     char bf[65536];
     int c;
     fgetc(f);
-    int reg[8];
-    reg[0] = 0;
-    int curreg = 0;
+    int mem[30000] = { 0 };
+    int curmem = 0;
     int i = 0;
     int start = 0;
 
@@ -20,27 +19,27 @@ int main(int argc, char *argv[]) {
     while( i <= sizeof(bf) ){
         switch(bf[i]) {
         case '+':
-            reg[curreg] += 1;
+            mem[curmem] += 1;
             break;
         case '-':
-            reg[curreg] -= 1;
+            mem[curmem] -= 1;
             break;
         case '>':
-            curreg += 1;
+            curmem += 1;
             break;
         case '<':
-            curreg -= 1;
+            curmem -= 1;
             break;
         case '[':
             start = i;
             break;
         case ']':
-            if (reg[0] >= 0) {
+            if (mem[0] >= 0) {
                 i = start;
             }
             break;
         case '.':
-            printf( "%c", reg[curreg]);
+            printf( "%c", mem[curmem]);
             break;
         case ' ':
         case '\n':
