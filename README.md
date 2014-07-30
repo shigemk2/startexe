@@ -12,7 +12,16 @@ EXEファイルの基礎を集中的に勉強する講座で、簡単なコン�
 
 ```sh
 $ gcc brainfuck.c -o brainfuck.exe
-$ ./brainfuck.exe mul.b
+$ ./brainfuck.exe test.b
+```
+
+#### BF->Cのトランスレータ
+
+```sh
+$ gcc bftr-c.c -o bftr-c.exe
+$ ./bftr-c.exe test.b // translate.cが生成される
+$ gcc translate.c -o translate.exe
+$ ./translate.exe
 ```
 
 #### 資料
